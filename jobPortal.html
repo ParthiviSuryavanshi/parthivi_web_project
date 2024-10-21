@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Portal Landing Page</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        body {
+            height: 100vh;
+            background: black no-repeat center center/cover;
+            color: white;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            text-align: center;
+            gap: 40px;
+        }
+
+        h1 {
+            font-size: 48px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        a {
+            display: inline-block;
+            font-size: 22px;
+            padding: 15px 30px;
+            margin: 10px;
+            color: #fff;
+            background-color: #28a745;
+            border-radius: 30px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        a:hover {
+            background-color: #218838;
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.5);
+            transform: translateY(-3px);
+        }
+
+        footer {
+            position: absolute;
+            bottom: 20px;
+            width: 100%;
+            text-align: center;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to the Job Portal</h1>
+        <a href="joblisting.html">Browse Jobs (Students)</a>
+        <a href="companyDashboard.html">Access Company Dashboard</a>
+    </div>
+
+    <footer>
+        © 2024 Job Portal. All Rights Reserved.
+    </footer>
+</body>
+</html>

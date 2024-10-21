@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Details</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+        .job-details {
+            width: 80%;
+            margin: 20px auto;
+            background-color: #1c1c1c;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .apply-form input, 
+        .apply-form button {
+            width: 100%;
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 8px;
+            border: none;
+        }
+        .apply-form button {
+            background-color: #28a745;
+            color: white;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="job-details">
+        <h1>Software Engineer</h1>
+        <p><strong>Description:</strong> Design, develop, and deploy software systems.</p>
+        <p><strong>Skills:</strong> JavaScript, React, Node.js</p>
+        <p><strong>Location:</strong> Remote</p>
+        <p><strong>Deadline:</strong> 31st October 2024</p>
+
+        <form class="apply-form" method="POST" enctype="multipart/form-data">
+            <input type="text" name="name" placeholder="Your Name" required>
+            <input type="email" name="email" placeholder="Your Email" required>
+            <input type="file" name="resume" required>
+            <button type="submit">Apply Now</button>
+        </form>
+    </div>
+</body>
+</html>

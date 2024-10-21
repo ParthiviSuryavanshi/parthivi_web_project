@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Company Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+        .job-form input, 
+        .job-form textarea, 
+        .job-form button {
+            display: block;
+            width: 80%;
+            margin: 10px auto;
+            padding: 10px;
+            border-radius: 8px;
+            border: none;
+        }
+        .job-form button {
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+        .job-container {
+            width: 80%;
+            margin: 20px auto;
+        }
+        .job-card {
+            background-color: #1c1c1c;
+            padding: 20px;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1 style="text-align: center; margin: 20px 0;">Company Dashboard</h1>
+    </header>
+
+    <form class="job-form">
+        <input type="text" name="title" placeholder="Job Title" required>
+        <textarea name="description" placeholder="Job Description" required></textarea>
+        <input type="text" name="skills" placeholder="Required Skills" required>
+        <input type="text" name="location" placeholder="Location" required>
+        <input type="date" name="deadline" required>
+        <button type="submit">Post Job</button>
+    </form>
+
+    <div class="job-container">
+        <h2>Your Posted Jobs</h2>
+        <div class="job-card">
+            <h3>Software Engineer</h3>
+            <a href="jobDetails.html">View Applicants</a>
+        </div>
+    </div>
+</body>
+</html>

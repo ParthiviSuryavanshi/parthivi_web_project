@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Listings</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+        header {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .job-container {
+            width: 80%;
+            margin: 20px auto;
+        }
+        .filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .filters input, .filters select {
+            flex: 1;
+            min-width: 200px;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #007bff;
+            background-color: #1c1c1c;
+            color: white;
+        }
+        .job-card {
+            background-color: #1c1c1c;
+            padding: 20px;
+            margin: 10px 0;
+            border-radius: 8px;
+        }
+        .job-card h2 {
+            margin-bottom: 10px;
+            font-size: 24px;
+        }
+        .job-card p {
+            margin: 5px 0;
+            font-size: 16px;
+        }
+        .job-card a {
+            display: inline-block;
+            margin-top: 10px;
+            color: #007bff;
+            text-decoration: none;
+        }
+        .job-card a:hover {
+            text-decoration: underline;
+        }
+    </style>
+    <script>
+        function filterJobs() {
+            const searchValue = document.getElementById('search-bar').value.toLowerCase();
+            const locationValue = document.getElementById('location-filter').value.toLowerCase();
+            const skillsValue = document.getElementById('skills-filter').value.toLowerCase();
+            const jobTypeValue = document.getElementById('job-type-filter').value.toLowerCase();
+
+            const jobs = document.querySelectorAll('.job-card');
+            jobs.forEach(job => {
+                const title = job.querySelector('h2').innerText.toLowerCase();
+                const company = job.querySelector('p strong').innerText.toLowerCase();
+                const location = job.querySelector('p:nth-of-type(2)').innerText.toLowerCase();
+                const skills = job.querySelector('p:nth-of-type(3)').innerText.toLowerCase();
+                const type = job.querySelector('p:nth-of-type(4)').innerText.toLowerCase();
+
+                const matchesSearch = 
+                    title.includes(searchValue) || 
+                    company.includes(searchValue);
+
+                const matchesLocation = 
+                    location.includes(locationValue) || locationValue === '';
+
+                const matchesSkills = 
+                    skills.includes(skillsValue) || skillsValue === '';
+
+                const matchesJobType = 
+                    jobTypeValue === 'all' || type.includes(jobTypeValue);
+
+                if (matchesSearch && matchesLocation && matchesSkills && matchesJobType) {
+                    job.style.display = 'block';
+                } else {
+                    job.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <h1>Available Jobs and Internships</h1>
+    </header>
+
+    <div class="job-container">
+        <div class="filters">
+            <input type="text" id="search-bar" placeholder="Search by job title or company" oninput="filterJobs()">
+            <input type="text" id="location-filter" placeholder="Filter by location" oninput="filterJobs()">
+            <input type="text" id="skills-filter" placeholder="Filter by skills" oninput="filterJobs()">
+            <select id="job-type-filter" onchange="filterJobs()">
+                <option value="all">All Job Types</option>
+                <option value="internship">Internship</option>
+                <option value="full-time">Full-time</option>
+            </select>
+        </div>
+
+        <div class="job-card">
+            <h2>Software Engineer</h2>
+            <p><strong>Company:</strong> Tech Solutions Inc.</p>
+            <p><strong>Location:</strong> Pune</p>
+            <p><strong>Skills:</strong> JavaScript, Python</p>
+            <p><strong>Type:</strong> Full-time</p>
+            <p><strong>Deadline:</strong> 31st October 2024</p>
+            <a href="jobDetails.html">View Details</a>
+        </div>
+
+        <div class="job-card">
+            <h2>Data Analyst Intern</h2>
+            <p><strong>Company:</strong> DataWiz Analytics</p>
+            <p><strong>Location:</strong> Mumbai</p>
+            <p><strong>Skills:</strong> Excel, SQL</p>
+            <p><strong>Type:</strong> Internship</p>
+            <p><strong>Deadline:</strong> 15th November 2024</p>
+            <a href="jobDetails.html">View Details</a>
+        </div>
+
+        <div class="job-card">
+            <h2>UI/UX Designer</h2>
+            <p><strong>Company:</strong> Creative Studio</p>
+            <p><strong>Location:</strong> Bangalore</p>
+            <p><strong>Skills:</strong> Figma, Adobe XD</p>
+            <p><strong>Type:</strong> Full-time</p>
+            <p><strong>Deadline:</strong> 20th October 2024</p>
+            <a href="jobDetails.html">View Details</a>
+        </div>
+
+        <div class="job-card">
+            <h2>Marketing Intern</h2>
+            <p><strong>Company:</strong> BrightMark Ventures</p>
+            <p><strong>Location:</strong> Delhi</p>
+            <p><strong>Skills:</strong> Social Media, SEO</p>
+            <p><strong>Type:</strong> Internship</p>
+            <p><strong>Deadline:</strong> 10th November 2024</p>
+            <a href="jobDetails.html">View Details</a>
+        </div>
+
+        <div class="job-card">
+            <h2>Trainee Engineer Intern</h2>
+            <p><strong>Company:</strong> Accenture</p>
+            <p><strong>Location:</strong> Pune</p>
+            <p><strong>Skills:</strong> Programminf Languages, DSA</p>
+            <p><strong>Type:</strong> Full-time</p>
+            <p><strong>Deadline:</strong> 20th December 2024</p>
+            <a href="jobDetails.html">View Details</a>
+        </div>
+
+        <div class="job-card">
+            <h2>IT Intern</h2>
+            <p><strong>Company:</strong> Wipro</p>
+            <p><strong>Location:</strong> Mumbai</p>
+            <p><strong>Skills:</strong> Problem solving, Java</p>
+            <p><strong>Type:</strong> Full-time</p>
+            <p><strong>Deadline:</strong> 19th November 2024</p>
+            <a href="jobDetails.html">View Details</a>
+        </div>
+    </div>
+</body>
+</html>

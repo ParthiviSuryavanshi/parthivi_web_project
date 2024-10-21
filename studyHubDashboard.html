@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="css/studyHubDashboard.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Grenze+Gotisch:wght@300;400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <title>StudyHub-Dashboard</title>
+    <style>
+        .dropdown-select {
+            width: 350px;
+            margin-bottom: 10px;
+        }
+        .tab {
+            cursor: pointer;
+            width: 80px;
+        }
+        .tab-content {
+            padding: 10px;
+            border: 1px solid #ccc;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="arrow"></div>
+        <a href="./index.html" class="arrow-img"><img src="https://static.vecteezy.com/system/resources/thumbnails/010/593/059/small/dashboard-line-icon-free-vector.jpg" style="height: 40px;" alt="arrow" /></a>
+    </header>
+
+    <section class="dashboard">
+        <div class="dashboard-container container flex">
+            <div class="dropdown-container">
+                <div class="dashboard-heading">Dashboard</div>
+                <div>
+                    <form>
+                        <select id="stream" onchange="updateSubjects()" class="dropdown-select">
+                            <option value="" disabled selected>Choose Your Branch</option>
+                            <option value="cse">Computer Science</option>
+                            <option value="it">Information Technology</option>
+                            <option value="ai">Artificial Intelligence</option>
+                            <option value="ece">Electronics and Communication</option>
+                            <option value="me">Mechanical</option>
+                        </select>
+                        <br />
+                        <select id="semester" onchange="updateSubjects()" class="dropdown-select">
+                            <option value="" disabled selected>Choose Your Semester</option>
+                            <option value="1">1st Semester</option>
+                            <option value="2">2nd Semester</option>
+                            <option value="3">3rd Semester</option>
+                            <option value="4">4th Semester</option>
+                            <option value="5">5th Semester</option>
+                            <option value="6">6th Semester</option>
+                            <option value="7">7th Semester</option>
+                            <option value="8">8th Semester</option>
+                        </select>
+                        <br />
+                        <select id="subjects" class="dropdown-select dynamic-dropdown">
+                            <option value="" disabled selected>Select a subject</option>
+                        </select>
+                    </form>
+                </div>
+
+                <div>
+                    <input type="text" id="searchBar" placeholder="Search by title, branch, semester, or subject" />
+                </div>
+                
+            </div>
+
+            <div class="tab-menu-container">
+                <div id="tabMenu" class="tabs-container fadeIn">
+                    <button class="tab" onclick="openTab('pyq')">PYQ</button>
+                    <button class="tab" onclick="openTab('notes')">Notes</button>
+                    <button class="tab" onclick="openTab('videos')">Videos</button>
+                    <button class="tab" onclick="openTab('upload')">Upload</button>
+                </div>
+
+                <div id="pyq" class="tab-content" style="display: none">
+                    <h3>PYQs</h3>
+                    <div id="pyqList"></div>
+                </div>
+                <div id="notes" class="tab-content" style="display: none">
+                    <h3>Notes</h3>
+                    <div id="notesList"></div>
+                </div>
+                <div id="videos" class="tab-content" style="display: none">
+                    <h3>Videos</h3>
+                    <div id="videosList"></div>
+                </div>
+
+                <section id="edit-resource" style="display:none;">
+                    <h2>Edit Resource</h2>
+                    <form id="edit-resource-form">
+                        <input type="hidden" id="edit-resource-id" name="id">
+                        <label for="edit-title">Title:</label>
+                        <input type="text" id="edit-title" name="title" required>
+                        <label for="edit-link">Link:</label>
+                        <input type="url" id="edit-link" name="link" required>
+                        <label for="edit-category">Category:</label>
+                        <input type="text" id="edit-category" name="category" required>
+                        <button type="submit">Save Changes</button>
+                    </form>
+                </section>
+
+                <div id="upload" class="tab-content" style="display: none">
+                    <h3>Upload Content</h3>
+
+                    <h4>Metadata Fields</h4>
+
+                    <label for="title">Title:</label>
+                    <input type="text" id="title" name="title" placeholder="Enter the title" class="dropdown-select" required>
+
+                    <br>
+                    <label for="category">Category:</label>
+                    <select id="category" name="category" class="dropdown-select" required>
+                        <option value="" disabled selected>Select a category</option>
+                        <option value="pyq">PYQ</option>
+                        <option value="notes">Notes</option>
+                        <option value="video">Video</option>
+                    </select>
+
+                    <br>
+                    <label for="uploadStream">Branch:</label>
+                    <select id="uploadStream" class="dropdown-select" onchange="updateUploadSubjects()" required>
+                        <option value="" disabled selected>Select Branch</option>
+                        <option value="cse">Computer Science</option>
+                        <option value="it">Information Technology</option>
+                        <option value="ai">Artificial Intelligence</option>
+                        <option value="ece">Electronics and Communication</option>
+                        <option value="me">Mechanical</option>
+                    </select>
+
+                    <br>
+                    <label for="uploadSemester">Semester:</label>
+                    <select id="uploadSemester" class="dropdown-select" onchange="updateUploadSubjects()" required>
+                        <option value="" disabled selected>Select Semester</option>
+                        <option value="1">1st Semester</option>
+                        <option value="2">2nd Semester</option>
+                        <option value="3">3rd Semester</option>
+                        <option value="4">4th Semester</option>
+                        <option value="5">5th Semester</option>
+                        <option value="6">6th Semester</option>
+                        <option value="7">7th Semester</option>
+                        <option value="8">8th Semester</option>
+                    </select>
+
+                    <br>
+                    <label for="uploadSubjects">Subject:</label>
+                    <select id="uploadSubjects" class="dropdown-select dynamic-dropdown" required>
+                        <option value="" disabled selected>Select a subject</option>
+                    </select>
+
+                    <br><br><br><br>
+
+                    <hr>
+
+                    <h4>Upload PYQ (PDF only)</h4>
+                    <input type="file" id="pyqFileUpload" accept=".pdf" />
+                    <button onclick="uploadPYQ()">Upload PYQ</button>
+
+                    <h4>Upload Notes (PDF only)</h4>
+                    <input type="file" id="notesFileUpload" accept=".pdf" />
+                    <button onclick="uploadNotes()">Upload Notes</button>
+
+                    <h4>Upload Video (YouTube Link)</h4>
+                    <input type="text" id="videoLink" placeholder="Enter YouTube link" />
+                    <button onclick="uploadVideo()">Upload Video</button>
+                </div>
+                <br><br><br><br>
+                
+            </div>
+        </div>
+    </section>
+    
+
+    <script>
+        const subjectsData = {
+            cse: {
+                1: ['Mathematics 1', 'Programming Fundamentals'],
+                2: ['Data Structures', 'Discrete Mathematics'],
+                3: ['Database Management Systems', 'Software Engineering'],
+                4: ['Computer Networks', 'Operating Systems'],
+                5: ['Theory of Computation', 'Compiler Design'],
+                6: ['Machine Learning', 'Web Technology'],
+                7: ['Cloud Computing', 'Mobile Application Development'],
+                8: ['Artificial Intelligence', 'Cyber Security']
+            },
+            it: {
+                1: ['Mathematics 1', 'Computer Fundamentals'],
+                2: ['Data Structures', 'Computer Organization'],
+                3: ['Software Engineering', 'Web Development'],
+                4: ['Database Management Systems', 'Operating Systems'],
+                5: ['Network Security', 'Mobile Computing'],
+                6: ['Data Mining', 'Cloud Computing'],
+                7: ['DevOps', 'Blockchain Technology'],
+                8: ['Big Data Analytics', 'Machine Learning']
+            },
+            ai: {
+                1: ['Mathematics 1', 'Introduction to AI'],
+                2: ['Machine Learning Basics', 'Statistics'],
+                3: ['Deep Learning', 'Natural Language Processing'],
+                4: ['Computer Vision', 'AI Ethics'],
+                5: ['Reinforcement Learning', 'AI Project'],
+                6: ['AI in Healthcare', 'AI in Robotics'],
+                7: ['AI in Finance', 'AI in Education'],
+                8: ['Advanced AI Topics', 'Capstone Project']
+            },
+            ece: {
+                1: ['Mathematics 1', 'Circuit Theory'],
+                2: ['Signal Processing', 'Digital Electronics'],
+                3: ['Microprocessors', 'Control Systems'],
+                4: ['Communication Systems', 'Embedded Systems'],
+                5: ['VLSI Design', 'Wireless Communication'],
+                6: ['RF Circuit Design', 'Optoelectronics'],
+                7: ['Digital Signal Processing', 'Nanoelectronics'],
+                8: ['Electromagnetic Fields', 'Project Management']
+            },
+            me: {
+                1: ['Mathematics 1', 'Engineering Mechanics'],
+                2: ['Thermodynamics', 'Fluid Mechanics'],
+                3: ['Material Science', 'Manufacturing Processes'],
+                4: ['Machine Design', 'Heat Transfer'],
+                5: ['Thermal Engineering', 'Mechanical Vibrations'],
+                6: ['Industrial Engineering', 'CAD/CAM'],
+                7: ['Mechatronics', 'Robotics'],
+                8: ['Renewable Energy', 'Project Work']
+            }
+        };
+
+
+
+        function updateSubjects() {
+            const streamDropdown = document.getElementById("stream");
+            const semesterDropdown = document.getElementById("semester");
+            const subjectsDropdown = document.getElementById("subjects");
+
+            subjectsDropdown.innerHTML = '<option value="" disabled selected>Select a subject</option>';
+
+            const selectedStream = streamDropdown.value;
+            const selectedSemester = semesterDropdown.value;
+
+            if (selectedStream && selectedSemester) {
+                const subjects = subjectsData[selectedStream][selectedSemester];
+                if (subjects) {
+                    subjects.forEach(subject => {
+                        const option = document.createElement("option");
+                        option.value = subject;
+                        option.textContent = subject;
+                        subjectsDropdown.appendChild(option);
+                    });
+                }
+            }
+        }
+
+        function updateUploadSubjects() {
+            const streamDropdown = document.getElementById("uploadStream");
+            const semesterDropdown = document.getElementById("uploadSemester");
+            const subjectsDropdown = document.getElementById("uploadSubjects");
+        
+            subjectsDropdown.innerHTML = '<option value="" disabled selected>Select a subject</option>';
+        
+            const selectedStream = streamDropdown.value;
+            const selectedSemester = semesterDropdown.value;
+        
+            if (selectedStream && selectedSemester) {
+                const subjects = subjectsData[selectedStream][selectedSemester];
+                if (subjects) {
+                    subjects.forEach(subject => {
+                        const option = document.createElement("option");
+                        option.value = subject;
+                        option.textContent = subject;
+                        subjectsDropdown.appendChild(option);
+                    });
+                }
+            }
+        }
+        
+        function openTab(tabName) {
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabContents.forEach(tab => {
+                tab.style.display = 'none';
+            });
+            document.getElementById(tabName).style.display = 'block';
+        }
+
+        let resources = {
+            pyq: [],
+            notes: [],
+            videos: []
+        };
+
+        function uploadPYQ() {
+            const fileInput = document.getElementById('pyqFileUpload');
+            const selectedFile = fileInput.files[0];
+            const title = document.getElementById('title').value;
+            const category = document.getElementById('category').value;
+            const branch = document.getElementById('uploadStream').value;
+            const semester = document.getElementById('uploadSemester').value;
+            const subject = document.getElementById('uploadSubjects').value;
+        
+            if (selectedFile && title && category && branch && semester && subject) {
+                const blobUrl = URL.createObjectURL(selectedFile);
+                const pyqDiv = document.createElement("div");
+                pyqDiv.classList.add("resource-item");
+                pyqDiv.innerHTML = `
+                    <a href="${blobUrl}" target="_blank">${title} (${branch}, ${semester}, ${subject})</a>
+                    <button onclick="editResource('pyq', '${title}')">Edit</button>
+                    <button onclick="deleteResource('pyq', '${title}')">Delete</button>
+                `;
+                document.getElementById('pyqList').appendChild(pyqDiv);
+                resources.pyq.push({ title, link: blobUrl, category, branch, semester, subject });
+            } else {
+                alert('Please fill all fields and select a file.');
+            }
+        }
+        
+        function uploadNotes() {
+            const fileInput = document.getElementById('notesFileUpload');
+            const selectedFile = fileInput.files[0];
+            const title = document.getElementById('title').value;
+            const category = document.getElementById('category').value;
+            const branch = document.getElementById('uploadStream').value;
+            const semester = document.getElementById('uploadSemester').value;
+            const subject = document.getElementById('uploadSubjects').value;
+        
+            if (selectedFile && title && category && branch && semester && subject) {
+                const blobUrl = URL.createObjectURL(selectedFile);
+                const notesDiv = document.createElement("div");
+                notesDiv.classList.add("resource-item");
+                notesDiv.innerHTML = `
+                    <a href="${blobUrl}" target="_blank">${title} (${branch}, ${semester}, ${subject})</a>
+                    <button onclick="editResource('notes', '${title}')">Edit</button>
+                    <button onclick="deleteResource('notes', '${title}')">Delete</button>
+                `;
+                document.getElementById('notesList').appendChild(notesDiv);
+                resources.notes.push({ title, link: blobUrl, category, branch, semester, subject });
+            } else {
+                alert('Please fill all fields and select a file.');
+            }
+        }
+        
+        function uploadVideo() {
+            const videoLink = document.getElementById('videoLink').value;
+            const title = document.getElementById('title').value;
+            const category = document.getElementById('category').value;
+            const branch = document.getElementById('uploadStream').value;
+            const semester = document.getElementById('uploadSemester').value;
+            const subject = document.getElementById('uploadSubjects').value;
+        
+            if (videoLink && title && category && branch && semester && subject) {
+                const videoId = extractVideoId(videoLink);
+                if (videoId) {
+                    const thumbnailUrl = `https://img.youtube.com/vi/${videoId}/0.jpg`;
+                    const videoDiv = document.createElement("div");
+                    videoDiv.classList.add("resource-item");
+                    videoDiv.innerHTML = `
+                        <img src="${thumbnailUrl}" alt="Video Thumbnail" />
+                        <a href="${videoLink}" target="_blank">${title} (${branch}, ${semester}, ${subject})</a>
+                        <button onclick="editResource('videos', '${videoLink}')">Edit</button>
+                        <button onclick="deleteResource('videos', '${videoLink}')">Delete</button>
+                    `;
+                    document.getElementById('videosList').appendChild(videoDiv);
+                    resources.videos.push({ title, link: videoLink, category, branch, semester, subject });
+                } else {
+                    alert('Please enter a valid YouTube link.');
+                }
+            } else {
+                alert('Please fill all fields and enter a YouTube link.');
+            }
+        }
+
+        function extractVideoId(url) {
+            const regex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+            const matches = url.match(regex);
+            return matches ? matches[1] : null;
+        }
+
+        function editResource(category, title) {
+            const resource = resources[category].find(r => r.title === title);
+            if (resource) {
+                document.querySelector('#edit-resource-id').value = title;
+                document.querySelector('#edit-title').value = resource.title;
+                document.querySelector('#edit-link').value = resource.link;
+                document.querySelector('#edit-category').value = resource.category;
+                document.querySelector('#edit-resource').style.display = 'block';
+            }
+        }
+
+        document.querySelector('#edit-resource-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const category = document.querySelector('#edit-category').value;
+            const title = document.querySelector('#edit-title').value;
+            const link = document.querySelector('#edit-link').value;
+            const id = document.querySelector('#edit-resource-id').value;
+
+            const resourceIndex = resources[category].findIndex(r => r.title === id);
+            if (resourceIndex !== -1) {
+                resources[category][resourceIndex] = { title, link, category };
+                updateResourceDisplay(category);
+                document.querySelector('#edit-resource').style.display = 'none';
+            }
+        });
+
+        function deleteResource(category, title) {
+            if (confirm('Are you sure you want to delete this resource?')) {
+                resources[category] = resources[category].filter(r => r.title !== title);
+                updateResourceDisplay(category);
+            }
+        }
+
+        function updateResourceDisplay(category) {
+            const resourceList = document.getElementById(`${category}List`);
+            resourceList.innerHTML = '';
+            resources[category].forEach(resource => {
+                const resourceDiv = document.createElement("div");
+                resourceDiv.classList.add("resource-item");
+                if (category === 'videos') {
+                    const videoId = extractVideoId(resource.link);
+                    const thumbnailUrl = `https://img.youtube.com/vi/${videoId}/0.jpg`;
+                    resourceDiv.innerHTML = `
+                        <img src="${thumbnailUrl}" alt="Video Thumbnail" />
+                        <a href="${resource.link}" target="_blank">${resource.title} (${resource.subject})</a>
+                        <button onclick="editResource('${category}', '${resource.link}')">Edit</button>
+                        <button onclick="deleteResource('${category}', '${resource.link}')">Delete</button>
+                    `;
+                } else {
+                    resourceDiv.innerHTML = `
+                        <a href="${resource.link}" target="_blank">${resource.title} (${resource.subject})</a>
+                        <button onclick="editResource('${category}', '${resource.title}')">Edit</button>
+                        <button onclick="deleteResource('${category}', '${resource.title}')">Delete</button>
+                    `;
+                }
+                resourceList.appendChild(resourceDiv);
+            });
+        }
+
+
+        function openTab(tabName) {
+            const tabContents = document.getElementsByClassName("tab-content");
+            for (let i = 0; i < tabContents.length; i++) {
+                tabContents[i].style.display = "none";
+            }
+            document.getElementById(tabName).style.display = "block";
+        }
+
+
+        function searchResources() {
+            const searchTerm = document.getElementById('searchBar').value.toLowerCase();
+        
+            const searchedPyqs = resources.pyq.filter(resource =>
+                resource.title.toLowerCase().includes(searchTerm) ||
+                resource.branch.toLowerCase().includes(searchTerm) ||
+                resource.semester.toLowerCase().includes(searchTerm) ||
+                resource.subject.toLowerCase().includes(searchTerm)
+            );
+            const searchedNotes = resources.notes.filter(resource =>
+                resource.title.toLowerCase().includes(searchTerm) ||
+                resource.branch.toLowerCase().includes(searchTerm) ||
+                resource.semester.toLowerCase().includes(searchTerm) ||
+                resource.subject.toLowerCase().includes(searchTerm)
+            );
+            const searchedVideos = resources.videos.filter(resource =>
+                resource.title.toLowerCase().includes(searchTerm) ||
+                resource.branch.toLowerCase().includes(searchTerm) ||
+                resource.semester.toLowerCase().includes(searchTerm) ||
+                resource.subject.toLowerCase().includes(searchTerm)
+            );
+        
+            updateResourceDisplay('pyq', searchedPyqs);
+            updateResourceDisplay('notes', searchedNotes);
+            updateResourceDisplay('videos', searchedVideos);
+        }
+        
+        function updateResourceDisplay(category, filteredResources = null) {
+            const resourceList = document.getElementById(`${category}List`);
+            resourceList.innerHTML = '';  
+        
+            const resourcesToDisplay = filteredResources || resources[category]; 
+        
+            resourcesToDisplay.forEach(resource => {
+                const resourceDiv = document.createElement("div");
+                resourceDiv.classList.add("resource-item");
+                if (category === 'videos') {
+                    const videoId = extractVideoId(resource.link);
+                    const thumbnailUrl = `https://img.youtube.com/vi/${videoId}/0.jpg`;
+                    resourceDiv.innerHTML = `
+                        <img src="${thumbnailUrl}" alt="Video Thumbnail" />
+                        <a href="${resource.link}" target="_blank">${resource.title} (${resource.subject})</a>
+                        <button onclick="editResource('${category}', '${resource.link}')">Edit</button>
+                        <button onclick="deleteResource('${category}', '${resource.link}')">Delete</button>
+                    `;
+                } else {
+                    resourceDiv.innerHTML = `
+                        <a href="${resource.link}" target="_blank">${resource.title} (${resource.subject})</a>
+                        <button onclick="editResource('${category}', '${resource.title}')">Edit</button>
+                        <button onclick="deleteResource('${category}', '${resource.title}')">Delete</button>
+                    `;
+                }
+                resourceList.appendChild(resourceDiv);
+            });
+        }
+        
+        document.getElementById('searchBar').addEventListener('input', searchResources);
+    
+        document.getElementById('filterStream').addEventListener('change', filterResources);
+        document.getElementById('filterSemester').addEventListener('change', filterResources);
+        document.getElementById('filterSubject').addEventListener('change', filterResources);
+        document.getElementById('searchBar').addEventListener('input', searchResources);
+    
+        updateSubjects();
+    </script>
+</body>
+</html>

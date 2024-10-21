@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student & Company Login</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #121212;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: #ffffff;
+    }
+
+    .container {
+      width: 400px;
+      background-color: #1e1e1e;
+      padding: 25px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.8);
+      border-radius: 8px;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .tab-container {
+      display: flex;
+      justify-content: space-around;
+      margin-bottom: 20px;
+    }
+
+    .tab {
+      cursor: pointer;
+      padding: 10px 20px;
+      border-bottom: 2px solid transparent;
+      color: #b3b3b3;
+    }
+
+    .active-tab {
+      border-bottom: 2px solid #4CAF50;
+      color: #ffffff;
+      font-weight: bold;
+    }
+
+    form {
+      display: none;
+    }
+
+    form.active {
+      display: block;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      background-color: #2e2e2e;
+      border: 1px solid #444;
+      color: #ffffff;
+      border-radius: 4px;
+    }
+
+    input::placeholder {
+      color: #b3b3b3;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #4CAF50;
+      color: #ffffff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    .link-container {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 10px;
+    }
+
+    .link-container a {
+      text-decoration: none;
+      color: #4CAF50;
+    }
+
+    .link-container a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>Login</h2>
+
+    <div class="tab-container">
+      <div class="tab active-tab" onclick="showForm('student')">Student</div>
+      <div class="tab" onclick="showForm('company')">Company</div>
+    </div>
+
+    <form id="student-form" class="active">
+      <input type="text" placeholder="Student Email" required />
+      <input type="password" placeholder="Password" required />
+      <button type="submit">Login as Student</button>
+      <div class="link-container">
+        <a href="#" onclick="showForm('register')">Register</a>
+        <a href="#" onclick="showForm('forgot-password')">Forgot Password?</a>
+      </div>
+    </form>
+
+    <form id="company-form">
+      <input type="text" placeholder="Company Email" required />
+      <input type="password" placeholder="Password" required />
+      <button type="submit">Login as Company</button>
+      <div class="link-container">
+        <a href="#" onclick="showForm('register')">Register</a>
+        <a href="#" onclick="showForm('forgot-password')">Forgot Password?</a>
+      </div>
+    </form>
+
+    <form id="register-form">
+      <input type="text" placeholder="Full Name" required />
+      <input type="email" placeholder="Email" required />
+      <input type="password" placeholder="Create Password" required />
+      <button type="submit">Register</button>
+      <div class="link-container">
+        <a href="#" onclick="showForm('student')">Back to Login</a>
+      </div>
+    </form>
+
+    <form id="forgot-password-form">
+      <input type="email" placeholder="Enter your email" required />
+      <button type="submit">Reset Password</button>
+      <div class="link-container">
+        <a href="#" onclick="showForm('student')">Back to Login</a>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    function showForm(formType) {
+      const forms = document.querySelectorAll('form');
+      const tabs = document.querySelectorAll('.tab');
+
+      forms.forEach(form => form.classList.remove('active'));
+      tabs.forEach(tab => tab.classList.remove('active-tab'));
+
+      if (formType === 'student' || formType === 'company') {
+        document.getElementById(`${formType}-form`).classList.add('active');
+        document.querySelector(`.tab[onclick="showForm('${formType}')"]`).classList.add('active-tab');
+      } else {
+        document.getElementById(`${formType}-form`).classList.add('active');
+      }
+    }
+  </script>
+
+</body>
+</html>
